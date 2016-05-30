@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>spider webdev taskone</title>
+ 		<style>
+   			div#memory_board{
+			background:#CCC;
+			border:#999 3px solid;
+			width:540px;
+			height:550px;
+			padding:24px;
+			margin:0px auto;
+			text-align:center;
+				}
+			div#memory_board > div{
+			background: url(https://images3.alphacoders.com/245/245539.jpg) no-repeat;
+			border:#000 1px solid;
+			width:71px;
+			height:71px;
+			float:left;
+			margin:10px;
+			padding:20px;
+			font-size:64px;
+			cursor:pointer;
+			text-align:center;
+				}
+ 	   </style>
+  </head>
+  <body>
+  	  	 
+        <div id="memory_board"></div>
+         <script>
+	        var output = '';
+			var tileopen;
+			var myvar;
+			var tile1,tile2;
+			var pic=[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+    		/*var Tile=new function(index)
+			{ this.index=index;
+				
+			}*/
+			function shufflepic(){
+				var j,temp;
+				for(var i=0;i<16;i++)
+				{
+					j=Math.floor(Math.random()*(pic.length-1));
+				    temp=pic[i];
+					pic[i]=pic[j];
+					pic[j]=temp;
+				}
+			}
+             var tiles=[];
+			 var rows=4;
+			 var columns=4;
+			 for(var i=0;i<columns;i++)
+			   for(var j=0;j<rows;j++)
+			     tiles.push(i+j);
+				 shufflepic();
+             for (var i = 0; i < tiles.length; i++) {
+             //     output+="<div id="+i+ "onclick=tileclicked("+i+") ></div>"; 
+				  output+='<div id='+i+' onclick="tileclicked('+i+')"></div>';
+                 }
+			 document.getElementById('memory_board').innerHTML = output;
+			 //
+			 //alert("board generation finished");
+			 tileopen=0;
+			 function tileclicked(index){
+				//alert("tile "+index+ " clicked");
+				//alert("tileopen="+tileopen+" ");
+				if(!tileopen){
+					//alert("if statement 1 entered");
+					tile1=index;
+				    var a=document.getElementById(""+index+"");
+					a.style.background='#FFF';
+					a.innerHTML=pic[index];
+					//a.onclick="return false";
+					tileopen=1;
+					//a.setAttribute('key',false);
+					
+				   //alert("tileopen updated "+tileopen+"");
+				}
+				else if (tileopen===1&&index!=tile1)
+				   {  //alert("if statement 2 entered");
+					   tile2=index;
+				       var a=document.getElementById(""+index+"");
+					   var b=document.getElementById(""+tile1+"");
+					   a.style.background='#FFF';
+					   a.innerHTML=pic[index];
+					   if(pic[tile1]===pic[tile2])
+					     {   //alert("both tiles match");
+							 tileopen=0;
+							 a.onclick="return false";
+							 b.onclick="return false";
+							
+						 }
+					   else
+					     {  //alert("both tiles dont match");
+							myvar=setTimeout(delayed,500);
+							function delayed(){
+							 a.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
+							b.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
+							a.innerHTML="";
+							b.innerHTML="";
+							//b.onclick="tileclicked(\''+tile1+'\');";
+							//onclick="closeTab(\''+name+'\');"
+							tileopen=0;}
+						 }
+				  }
+			 }
+		</script>	
+
+</body>
+</html>
