@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>spider webdev taskone</title>
+ 		<style>
+   			 html { 
+                 background:url(http://www.desktopwallpaperhd.net/wallpapers/3/4/pictures-tree-wallpaper-golden-resolution-pleasant-images-widescreen-high-32900.jpg)		
+				 no-repeat center center fixed; 
+                 -webkit-background-size: cover;
+                 -moz-background-size: cover;
+                 -o-background-size: cover;
+                 background-size: cover;
+				 }
+				 body{
+            	text-align:center;
+				color:#FFF;
+				font-family: sans-serif;
+    			font-weight: 100;
+			       }
+			 #topic{
+				 margin-bottom:0px;
+				 margin-top:0px;
+			       }
+			div#board{
+				background: #F90;
+				border:#F30 3px solid;
+				width:515px;
+				height:515px;
+				padding:14px;
+				margin: auto;
+				text-align:center;
+				border-radius:2px;
+				}
+			div#board > div{
+				background: url(https://images3.alphacoders.com/245/245539.jpg) no-repeat ;
+				border:#000 1px solid;
+				opacity:0.8;
+				width:65px;
+				height:65px;
+				color:#000;
+				float:left;
+				margin:10px;
+				padding:20px;
+				font-size:64px;
+				cursor:pointer;
+				text-align:center;
+				border-radius:2px;
+				}
+			div#board > div:hover{
+				opacity:1.0;
+				border:#0F0 1px solid ;
+			    }
+				     	
+				.addons{
+					display:inline;
+					text-align:left;
+					font-size:30px;
+					font-family:sans-serif;
+					color:#FF0;
+				}
+
+				button{
+				-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+				-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+				box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+				background-color:#79bbff;
+				-moz-border-radius:6px;
+				-webkit-border-radius:6px;
+				border-radius:6px;
+				border:1px solid #84bbf3;
+				cursor:pointer;
+				color:#ffffff;
+				font-family:Arial;
+				font-size:15px;
+				font-weight:bold;
+				padding:6px 24px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #528ecc;
+				}
+	   button:hover {
+				background-color:#378de5;
+				}
+	   button:active {
+				position:relative;
+				top:1px;
+				}
+ 	   </style>
+  </head>
+  <body>
+  	  	 <h3 id="topic">Memory Game</h3>
+        <div id="board"></div>
+        <div id="moves" class="addons">Moves:0</div>
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;
+        <div id="score" class="addons" >Score:0</div>
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;
+        <div id="sec" class="addons"></div>
+        <br/>
+        
+        <button id="reload" onclick="myFunction()">New Game</button>
+        <audio id="music"
+ 			<source src=""
+         		type='audio/mp4'>
+			</audio>
+         <script>
+	        var output = '';
+			var tileopen;
+			var myvar;
+			var tile1,tile2;
+			var music = document.getElementById("music");
+			var pic=[
+    "http://images.all-free-download.com/images/graphicthumb/grapes_fruit_eat_220761.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/apples_grass_fall_fruit_217525.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/strawberries_strawberry_strawberry_fruit_221490.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/orange_fruit_vitamins_217280.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/watermelon_melon_fruit_215471.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/cherries_fruit_sweet_224860.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/banana_fruit_healthy_223064.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/pineapple_fruit_sweet_223114.jpg",
+	"http://images.all-free-download.com/images/graphicthumb/grapes_fruit_eat_220761.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/apples_grass_fall_fruit_217525.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/strawberries_strawberry_strawberry_fruit_221490.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/orange_fruit_vitamins_217280.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/watermelon_melon_fruit_215471.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/cherries_fruit_sweet_224860.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/banana_fruit_healthy_223064.jpg",
+    "http://images.all-free-download.com/images/graphicthumb/pineapple_fruit_sweet_223114.jpg"
+    
+		];
+			var tilesmatched=0;
+			var moves=0;
+			var level,second,myvar1;
+			function shufflepic(){
+				var j,temp;
+				for(var i=0;i<16;i++)
+				{
+					j=Math.floor(Math.random()*(pic.length-1));
+				    temp=pic[i];
+					pic[i]=pic[j];
+					pic[j]=temp;
+				}
+			}
+             var tiles=[];
+			 var rows=4;
+			 var columns=4;
+			 for(var i=0;i<columns;i++)
+			   for(var j=0;j<rows;j++)
+			     tiles.push(i+j);
+				 shufflepic();
+             for (var i = 0; i < tiles.length; i++) 
+				  output+='<div id='+i+' onclick="tileclicked('+i+')"></div>';
+                 
+			 document.getElementById('board').innerHTML = output;
+			level=prompt("enter the difficulty level 1 for easy,2 for medium,3 for hard");
+			if( level==='1')
+			{
+				second=59;
+			}
+			else if(level==='2')
+			{
+				second=40;
+			}
+			else if(level ==='3')
+			{
+				second=15;
+			}
+			else
+			{
+				alert("Entered value is invalid.Enter 1,2 or 3.");
+				location.reload();
+				
+			}
+			setTimeout({},2000);
+			 myvar1=setInterval(function(){arv()},1000);
+			 function arv(){
+				 
+					 var t=document.getElementById("sec");
+					 t.innerHTML="   Sec:"+second;
+					 if(second===0)
+					 {
+						 alert("you lose,Better luck next time");
+						 clearInterval(myvar1);
+						
+					 }
+					 --second;
+					 
+			
+				 }
+			
+			 tileopen=0;
+			 function tileclicked(index){				
+				if(!tileopen){
+					moves++;
+					document.getElementById("moves").innerHTML="Moves: "+moves;
+					tile1=index;
+				    var a=document.getElementById(""+index+"");
+					a.style.background="url("+pic[index]+") no-repeat";
+					a.style.backgroundSize="cover";
+					tileopen=1;
+				}
+				else if (tileopen===1&&index!=tile1)
+				   {  
+					   moves++;
+					   document.getElementById("moves").innerHTML="Moves: "+moves;
+					   tile2=index;
+				       var a=document.getElementById(""+index+"");
+					   var b=document.getElementById(""+tile1+"");
+					   a.style.background="url("+pic[index]+") no-repeat";
+					   a.style.backgroundSize="cover";
+					   if(pic[tile1]===pic[tile2])
+					     {   tileopen=0;
+							 a.onclick="return false";
+							 b.onclick="return false";
+							 tilesmatched++;
+							 document.getElementById("score").innerHTML="Score: "+tilesmatched;
+	                         if(tilesmatched === 8)
+							    {
+								  music.src="Equinox.mp3";
+                                  music.play();
+								  clearInterval(mayvar1);
+								  alert("Congratulations,You finished the game");
+								}
+						 }
+					   else
+					     {  
+							myvar=setTimeout(delayed,500);
+							function delayed(){
+							 a.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
+							 
+							
+							b.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
+							
+							
+							tileopen=0;}
+						 }
+				  }
+			 }
+	          function myFunction() {
+    					   location.reload();
+				}		  	
+			
+				 
+			 
+		</script>	
+
+</body>
+</html>
