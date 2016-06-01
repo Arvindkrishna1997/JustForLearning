@@ -172,10 +172,14 @@
 				location.reload();
 				
 			}
-			setTimeout({},2000);
+			
 			 myvar1=setInterval(function(){arv()},1000);
 			 function arv(){
-				 
+				     
+					 if(tilesmatched===8)
+					 {
+						 clearInterval(myvar1);
+					 }
 					 var t=document.getElementById("sec");
 					 t.innerHTML="   Sec:"+second;
 					 if(second===0)
@@ -184,6 +188,7 @@
 						 clearInterval(myvar1);
 						
 					 }
+					 
 					 --second;
 					 
 			
@@ -216,11 +221,12 @@
 							 tilesmatched++;
 							 document.getElementById("score").innerHTML="Score: "+tilesmatched;
 	                         if(tilesmatched === 8)
-							    {
+							    { 
 								  music.src="Equinox.mp3";
                                   music.play();
-								  clearInterval(mayvar1);
 								  alert("Congratulations,You finished the game");
+								  
+								  
 								}
 						 }
 					   else
@@ -228,12 +234,8 @@
 							myvar=setTimeout(delayed,500);
 							function delayed(){
 							 a.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
-							 
-							
-							b.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
-							
-							
-							tileopen=0;}
+							 b.style.background='url(https://images3.alphacoders.com/245/245539.jpg) no-repeat';
+				             tileopen=0;}
 						 }
 				  }
 			 }
